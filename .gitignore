@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+.streamlit/secrets.toml
+
+# Downloaded market data: regenerate with collect_data.py after cloning.
+data/*.csv
+
+# Keep supplied course reference materials out of the project repository.
+과제참고/
