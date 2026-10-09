@@ -1,11 +1,16 @@
 import os
+from pathlib import Path
+
 import pandas as pd
 import yfinance as yf
 
+PROJECT_DIR = Path(__file__).resolve().parent
+os.chdir(PROJECT_DIR)
+DATA_DIR = PROJECT_DIR / "data"
+DATA_DIR.mkdir(exist_ok=True)
+
 # 1. 'data' 폴더가 없으면 자동으로 생성
-if not os.path.exists("data"):
-  os.makedirs("data")
-  print("📁 'data' 폴더를 생성했습니다.")
+print(f"📁 데이터 저장 폴더: {DATA_DIR}")
 
 # 2. 수집 조건 설정 (테슬라, 2년치 데이터 -> 약 500개 이상 데이터 포인트 확보)
 ticker = "TSLA"
@@ -29,6 +34,6 @@ print("\n--- [확인] 데이터 구조 및 결측치 여부 ---")
 print(df.info())
 
 # 6. CSV 파일로 저장 (과제 필수 요구사항 반영)
-file_path = os.path.join(os.path.dirname(__file__), "data", "tesla_stock_data.csv")
+file_path = DATA_DIR / "tesla_stock_data.csv"
 df.to_csv(file_path)
 print(f"\n✅ 데이터 수집 완료! 저장된 파일: {file_path}")

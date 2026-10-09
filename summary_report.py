@@ -1,8 +1,13 @@
 import os
+from pathlib import Path
+
 import pandas as pd
 
+PROJECT_DIR = Path(__file__).resolve().parent
+os.chdir(PROJECT_DIR)
+
 # 1. 데이터 불러오기
-file_path = os.path.join(os.path.dirname(__file__), "data", "tesla_stock_data.csv")
+file_path = PROJECT_DIR / "data" / "tesla_stock_data.csv"
 print(f"⏳ 데이터 파일을 불러오는 중입니다: {file_path}")
 df = pd.read_csv(file_path, index_col="Date", parse_dates=True)
 
@@ -43,10 +48,10 @@ report_content = f"""
 print(report_content)
 
 # 4. 리포트를 텍스트 파일로 저장
-if not os.path.exists("images"):
-  os.makedirs("images")
+images_dir = PROJECT_DIR / "images"
+images_dir.mkdir(exist_ok=True)
 
-report_path = "images/summary_report.txt"
+report_path = images_dir / "summary_report.txt"
 with open(report_path, "w", encoding="utf-8") as f:
   f.write(report_content)
 

@@ -1,7 +1,12 @@
 import os
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+
+PROJECT_DIR = Path(__file__).resolve().parent
+os.chdir(PROJECT_DIR)
 
 # 한글 폰트 및 스타일 설정 (그래프가 깨지지 않도록 설정)
 sns.set_theme(style='whitegrid')
@@ -9,13 +14,13 @@ plt.rcParams['font.family'] = 'Malgun Gothic'  # Windows 기준 맑은 고딕
 plt.rcParams['axes.unicode_minus'] = False
 
 # 1. 시각화 결과물을 저장할 'images' 폴더 생성
-images_dir = os.path.join(os.path.dirname(__file__), 'images')
-if not os.path.exists(images_dir):
-  os.makedirs(images_dir)
+images_dir = PROJECT_DIR / 'images'
+if not images_dir.exists():
+  images_dir.mkdir()
   print("📁 'images' 폴더를 생성했습니다.")
 
 # 2. 수집된 CSV 데이터 불러오기
-file_path = os.path.join(os.path.dirname(__file__), 'data', 'tesla_stock_data.csv')
+file_path = PROJECT_DIR / 'data' / 'tesla_stock_data.csv'
 print(f"⏳ 데이터 파일을 불러오는 중입니다: {file_path}")
 df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
 
@@ -74,7 +79,7 @@ plt.legend(loc='upper left', fontsize=10)
 plt.tight_layout()
 
 # 그래프 저장
-chart_path_1 = os.path.join(images_dir, '01_moving_average_trend.png')
+chart_path_1 = images_dir / '01_moving_average_trend.png'
 plt.savefig(chart_path_1, dpi=300)
 plt.close()
 print(f'\n✅ 첫 번째 시각화 그래프 저장 완료: {chart_path_1}')
@@ -96,7 +101,7 @@ plt.ylabel('Frequency', fontsize=12)
 plt.tight_layout()
 
 # 그래프 저장
-chart_path_2 = os.path.join(images_dir, '02_volume_distribution.png')
+chart_path_2 = images_dir / '02_volume_distribution.png'
 plt.savefig(chart_path_2, dpi=300)
 plt.close()
 print(f'✅ 두 번째 시각화 그래프 저장 완료: {chart_path_2}')
@@ -133,7 +138,7 @@ plt.ylabel('Monthly Return (%)', fontsize=12)
 plt.xticks(rotation=45, fontsize=9)
 plt.tight_layout()
 
-chart_path_3 = os.path.join(images_dir, '03_monthly_returns.png')
+chart_path_3 = images_dir / '03_monthly_returns.png'
 plt.savefig(chart_path_3, dpi=300)
 plt.close()
 print(f'✅ 세 번째 시각화 그래프 저장 완료: {chart_path_3}')

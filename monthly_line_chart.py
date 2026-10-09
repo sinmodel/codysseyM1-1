@@ -1,7 +1,12 @@
 import os
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+
+PROJECT_DIR = Path(__file__).resolve().parent
+os.chdir(PROJECT_DIR)
 
 # 한글 폰트 및 스타일 설정
 sns.set_theme(style='whitegrid')
@@ -9,7 +14,7 @@ plt.rcParams['font.family'] = 'Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] = False
 
 # 1. 데이터 불러오기
-file_path = os.path.join(os.path.dirname(__file__), 'data', 'tesla_stock_data.csv')
+file_path = PROJECT_DIR / 'data' / 'tesla_stock_data.csv'
 print(f'⏳ 데이터 파일을 불러오는 중입니다: {file_path}')
 df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
 
@@ -45,10 +50,10 @@ plt.legend(loc='upper left', fontsize=10)
 plt.tight_layout()
 
 # 4. 이미지 저장
-if not os.path.exists('images'):
-  os.makedirs('images')
+images_dir = PROJECT_DIR / 'images'
+images_dir.mkdir(exist_ok=True)
 
-chart_path = 'images/04_monthly_price_line_chart.png'
+chart_path = images_dir / '04_monthly_price_line_chart.png'
 plt.savefig(chart_path, dpi=300)
 plt.close()
 print(f'\n✅ 월별 꺾은선 그래프 저장 완료: {chart_path}')
