@@ -1,4 +1,5 @@
 <h1 align="center">Tesla (TSLA) Stock Analysis</h1>
+<p align="right">과제 제출자 : 신 재 풍</p>
 
 ## 1. 배포물 제출서 : ( 분석 결과 한눈에 보기 )
 
